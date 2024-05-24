@@ -1,27 +1,20 @@
 const express = require('express')
+const path = require('path')
+
 const app = express()
-const port = 5000
 
-app.get('/', (request, response) => {
-  response.send('<h1>Home Page</h1>')
+// setup static & middleware
+app.use(express.static('./public'))
+
+// app.get('/', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, './navbar-app/index.html'))
+// dump index.html in a public folder as well & server will automatically serve it. So to make a static site in node, put every static assets in the public folder
+// })
+
+app.all('*', (req, res) => {
+  res.status(404).send('resource not found')
 })
 
-app.get('/about', (request, response) => {
-  response.status(200).send('<h1>About Page</h1>')
+app.listen(5000, () => {
+  console.log('server is listening to port 5000')
 })
-
-app.all('*', (request, response) => {
-  response.status(404).send('<h1>Page Not Found</h1>')
-})
-
-app.listen(port, () => {
-  console.log('Server is listening on port ' + port)
-})
-
-// app.get()
-// app.post()
-// app.put()
-// app.delete()
-// app.use()
-// app.all()
-// app.listen()
