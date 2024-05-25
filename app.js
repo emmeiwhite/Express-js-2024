@@ -36,6 +36,19 @@ app.get('/api/products/:productId', (req, res) => {
   res.json(currentProduct)
 })
 
+// Query Parameter
+app.get('/api/v1/comments', (req, res) => {
+  const pageNumber = req.query.page
+  res.send(`Current Query String :${pageNumber}`)
+})
+
+// Let's work on a real world scenario for Query Parameter
+app.get('/api/v1/products', (req, res) => {
+  const search = req.query.search
+  const limit = req.query.limit
+  res.send(`Searching :${search} & total limit is ${limit} `)
+})
+
 app.listen(5000, () => {
   console.log('Server is listening on port 5000')
 })
