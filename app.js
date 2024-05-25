@@ -1,16 +1,10 @@
 const express = require('express')
-
 const app = express()
-const jsonData = [
-  {
-    name: 'John'
-  },
-  {
-    name: 'Emmei'
-  }
-]
+
+const { products, people } = require('./data.js')
+
 app.get('/', (req, res) => {
-  res.json(jsonData)
+  res.json(people)
 })
 
 app.listen(5000, () => {
