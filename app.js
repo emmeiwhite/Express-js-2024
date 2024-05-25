@@ -18,11 +18,22 @@ app.get('/api/products', (req, res) => {
     return {
       id,
       name,
-      image,
-      price
+      image
     }
   })
   res.json(productsUpdated)
+})
+
+// Setting route for a specific product with route parameters
+app.get('/api/products/:productId', (req, res) => {
+  const id = req.params.productId
+
+  const currentProduct = products.find(product => product.id === Number(id))
+
+  if (!currentProduct) {
+    res.send(`No such product with id = ${id}`)
+  }
+  res.json(currentProduct)
 })
 
 app.listen(5000, () => {
