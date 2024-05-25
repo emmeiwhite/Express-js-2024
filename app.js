@@ -60,7 +60,7 @@ app.get('/api/v1/products', (req, res) => {
 
   if (sortedProducts.length === 0) {
     // res.status(200).send('<h2>No Products Match Your Search</h2>')
-    res.status(200).json({ success: true, products: [] })
+    return res.status(200).json({ success: true, products: [] })
   }
 
   res.status(200).json(sortedProducts)
