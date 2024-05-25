@@ -44,9 +44,25 @@ app.get('/api/v1/comments', (req, res) => {
 
 // Let's work on a real world scenario for Query Parameter
 app.get('/api/v1/products', (req, res) => {
-  const search = req.query.search
-  const limit = req.query.limit
-  res.send(`Searching :${search} & total limit is ${limit} `)
+  const { search, limit } = req.query
+
+  let sortedProducts = [...products]
+
+  if (search) {
+    sortedProducts = sortedProducts.filter(product => {
+      return product.name.startsWith(search)
+    })
+  }
+
+  if (limit) {
+    sortedProducts = sortedProducts.slice(0, Number(limit))
+  }
+
+  if (sortedProducts.length === 0) {
+    res.send('<h2>No Products match </h2>')
+  }
+
+  res.json(sortedProducts)
 })
 
 app.listen(5000, () => {
