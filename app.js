@@ -26,6 +26,18 @@ app.get('/api/products', (req, res) => {
   ])
 })
 
+app.get('/api/customers', (req, res) => {
+  // we can now access req.user
+  const { name, id } = req.user
+  res.status(200).json([
+    {
+      id,
+      user: name,
+      authorized: true
+    }
+  ])
+})
+
 app.get('/api/products/:productID', (req, res) => {
   const id = req.params.productID
   res.send(`<h1>The Product with id: ${id}</h1>`)
