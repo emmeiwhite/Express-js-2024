@@ -2,10 +2,14 @@ const express = require('express')
 const app = express()
 
 const logger = require('./logger')
+const authorize = require('./authorize')
 
 // req => middle => res
+// applying logger to all the routes starting with /api
+// app.use('./api', logger)
 
-app.use(logger)
+/** using multiple middlewares in an array */
+app.use([logger, authorize])
 
 app.get('/', (req, res) => {
   res.send('<h1>Homepage</h1>')
