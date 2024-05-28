@@ -1,8 +1,12 @@
 const express = require('express')
 const app = express()
 
+const morgan = require('morgan') // third party middleware logger
+
 const logger = require('./logger')
 const authorize = require('./authorize')
+
+app.use(morgan('tiny')) // set on all routes to get basic data about request
 
 // req => middle => res
 // applying logger to all the routes starting with /api
