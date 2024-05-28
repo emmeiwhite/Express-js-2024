@@ -3,6 +3,9 @@ const app = express()
 
 const { people } = require('./data')
 
+// let's use middleware from express | Create static site
+app.use(express.static('./methods-public'))
+
 app.get('/api/people', (req, res) => {
   res.status(200).json({ success: true, data: people })
 })
