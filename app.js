@@ -9,7 +9,7 @@ const authorize = require('./authorize')
 // app.use('./api', logger)
 
 /** using multiple middlewares in an array */
-app.use([logger, authorize])
+// app.use([logger, authorize])
 
 app.get('/', (req, res) => {
   res.send('<h1>Homepage</h1>')
@@ -26,7 +26,8 @@ app.get('/api/products', (req, res) => {
   ])
 })
 
-app.get('/api/customers', (req, res) => {
+// Providing the middleware only for this route so that it is not applied for all the routes - now the app runs smoothly
+app.get('/api/customers', [logger, authorize], (req, res) => {
   // we can now access req.user
   const { name, id } = req.user
   res.status(200).json([
