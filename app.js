@@ -23,6 +23,16 @@ app.post('/login', (req, res) => {
   }
 })
 
+app.post('/logout', (req, res) => {
+  const { useremail } = req.body
+
+  if (useremail === 'test@gmail.com') {
+    res.status(200).json({ success: true, data: 'user logged out' })
+  } else {
+    res.status(401).send(`<h1>Please check your gmail and enter</h1>`)
+  }
+})
+
 app.listen(5000, () => {
   console.log('Listening to Port 5000')
 })
