@@ -9,6 +9,9 @@ app.use(express.static('./methods-public'))
 // In order to access the form data, we'll use middleware provided by express
 app.use(express.urlencoded({ extended: false }))
 
+// Since we'll be getting the form content from JavaScript in the JSON payload, we have to handle that as well. And for this we'll use another middleware
+app.use(express.json())
+
 app.post('/login', (req, res) => {
   const { username } = req.body
 
@@ -32,6 +35,16 @@ app.post('/logout', (req, res) => {
 /**--- Let's render the people array on the FE  ---*/
 app.get('/api/people', (req, res) => {
   res.status(200).json({ success: true, data: people })
+})
+
+/** --- Post request --- */
+app.post('/api/people', (req, res) => {
+  const { name } = req.body
+
+  if (!name) {
+    return res.status(401).json({ success: false, msg: 'please provide name value' })
+  }
+  res.status(200).json({ success: true, person: name })
 })
 
 app.listen(5000, () => {

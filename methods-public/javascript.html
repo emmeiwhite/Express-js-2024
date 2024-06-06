@@ -69,7 +69,7 @@
 
     <script>
       const result = document.querySelector('.result')
-
+      /* 1. Rendering data on the FE */
       const fetchPeople = async () => {
         try {
           const {
@@ -87,27 +87,30 @@
           result.innerHTML = `<div class="alert alert-danger">Can't Fetch Data</div>`
         }
       }
-
       fetchPeople()
-      // submit form
+
+      /* 2. Submitting Form Data to the Backend */
       const form = document.querySelector('form')
       const input = document.querySelector('.form-input')
       const formAlert = document.querySelector('.form-alert')
 
       form.addEventListener('submit', async e => {
         e.preventDefault()
-        const nameValue = input.value
+
+        const inputText = input.value
 
         try {
-          const { data } = await axios.post('/api/people', { name: nameValue })
-          const h5 = document.createElement('h5')
-          h5.textContent = data.person
-          result.appendChild(h5)
+          const { data } = await axios.post('/api/people', { name: inputText })
+          console.log(data.person)
+
+          const h5element = document.createElement('h5')
+          h5element.textContent = data.person
+
+          result.appendChild(h5element)
+          input.value = ''
         } catch (error) {
-          // console.log(error.response)
           formAlert.textContent = error.response.data.msg
         }
-        input.value = ''
       })
     </script>
   </body>
