@@ -9,10 +9,6 @@ app.use(express.static('./methods-public'))
 // In order to access the form data, we'll use middleware provided by express
 app.use(express.urlencoded({ extended: false }))
 
-app.get('/api/people', (req, res) => {
-  res.status(200).json({ success: true, data: people })
-})
-
 app.post('/login', (req, res) => {
   const { username } = req.body
 
@@ -31,6 +27,11 @@ app.post('/logout', (req, res) => {
   } else {
     res.status(401).send(`<h1>Please check your gmail and enter</h1>`)
   }
+})
+
+/**--- Let's render the people array on the FE  ---*/
+app.get('/api/people', (req, res) => {
+  res.status(200).json({ success: true, data: people })
 })
 
 app.listen(5000, () => {

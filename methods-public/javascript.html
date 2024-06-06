@@ -2,10 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./normalize.css" />
-    <link rel="stylesheet" href="./styles.css" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link
+      rel="stylesheet"
+      href="./normalize.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./styles.css"
+    />
     <title>Javascript</title>
   </head>
   <body>
@@ -13,17 +25,18 @@
       <div class="nav-center">
         <h5>HTTP Methods</h5>
         <div>
-          <a href="index.html">regular </a>
-          <a href="javascript.html">javascript </a>
+          <a href="index.html">regular</a>
+          <a href="javascript.html">javascript</a>
         </div>
       </div>
     </nav>
     <main>
       <section>
+        <!-- We have no action type and hence we'll handle the form submission from JavaScript -->
         <form>
           <h3>Javascript Form</h3>
           <div class="form-row">
-            <label for="name"> enter name </label>
+            <label for="name">enter name</label>
             <input
               type="text"
               name="name"
@@ -31,10 +44,20 @@
               class="form-input"
               autocomplete="false"
             />
+
+            <!-- For Error messages etc -->
             <small class="form-alert"></small>
           </div>
-          <button type="submit" class="block submit-btn">submit</button>
+
+          <button
+            type="submit"
+            class="block submit-btn"
+          >
+            submit
+          </button>
         </form>
+
+        <!-- We'll get submitted users and render in the result -->
         <div class="result"></div>
       </section>
     </main>
@@ -43,27 +66,35 @@
       integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
       crossorigin="anonymous"
     ></script>
+
     <script>
       const result = document.querySelector('.result')
 
       const fetchPeople = async () => {
         try {
-          const { data } = await axios.get('/api/people')
+          const {
+            data: { data: persons }
+          } = await axios.get('/api/people')
 
-          const people = data.data.map((person) => {
-            return `<h5>${person.name}</h5>`
-          })
-          result.innerHTML = people.join('')
+          const personHTML = persons
+            .map(person => {
+              return `<h5>${person.name}</h5>`
+            })
+            .join('')
+
+          result.innerHTML = personHTML
         } catch (error) {
           result.innerHTML = `<div class="alert alert-danger">Can't Fetch Data</div>`
         }
       }
+
       fetchPeople()
       // submit form
-      const btn = document.querySelector('.submit-btn')
+      const form = document.querySelector('form')
       const input = document.querySelector('.form-input')
       const formAlert = document.querySelector('.form-alert')
-      btn.addEventListener('click', async (e) => {
+
+      form.addEventListener('submit', async e => {
         e.preventDefault()
         const nameValue = input.value
 
